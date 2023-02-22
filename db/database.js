@@ -1,6 +1,7 @@
 //dependencies required
 const mysql = require ('mysql2');
-const dotenv = require ('dotenv')
+const dotenv = require ('dotenv');
+const { createConnection } = require('net');
 dotenv.config();
 
 //stores mysql connection in a variable and attaches a promise method to it, allowing asynchoronous functions to be used instead of callbacks from here on out
@@ -17,6 +18,11 @@ async function getDeparment(){
     return rows
 }
 
-//callback function for department table
-const department = await getDeparment()
-console.log(department)
+//async function to create department information
+async function createDeparment(id, name) {
+    await createConnection(`
+    INSERT INTO department (id, name)
+    VALUES (?, ?)
+    `, [id, name])
+    return getDeparment();
+}

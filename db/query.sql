@@ -1,0 +1,3 @@
+SELECT * FROM department;
+
+--LOOK AT ACTIVITY 26 FOR GUIDE

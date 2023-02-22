@@ -1,6 +1,7 @@
 CREATE DATABASE employee_tracker;
 USE employee_tracker;
 
+
 CREATE TABLE department (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR (30) NOT NULL
@@ -14,14 +15,11 @@ CREATE TABLE role (
 );
 
 CREATE TABLE employee (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR (30) NOT NULL,
     last_name VARCHAR(30) NOT NULL
     role_id INT NOT NULL
     manager_id INT NULL
 );
 
-INSERT INTO department (name)
-VALUES
-('chemistry'),
-('Hispanic studies');
+--MAKE SURE TO JOIN THESE TABLES USING FOREIGN KEY. LOOK AT ACTIVITY 20 FOR A GUIDE
