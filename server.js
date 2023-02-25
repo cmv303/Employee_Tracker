@@ -3,8 +3,18 @@
 
 //dependencies required
 const inquirer = require("inquirer");
+const mysql = require ('mysql2');
+require ('dotenv').config();
 
-//connect to mySQL using localhost, user, pw, database, etc
+//stores mysql connection in a variable and attaches a promise method to it, allowing asynchoronous functions to be used instead of callbacks from here on out
+const dbConnection = mysql.createConnection (
+  {
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE
+}
+).promise()
 
 
 const Questionnaire = {
@@ -141,6 +151,10 @@ async function run() {
 
 run();
 
-module.exports = questionnaire;
+module.exports = { dbConnection, questionnaire };
 
-//*notes to self: this works, but does not give a way back to the original question, essentially forcing the user to answer all questions. I need to figure out how to give a back choice, and for them to navigate as they wish. Of course, then this needs to be joined to the actual tables and database, which i still need to build.
+
+
+
+
+
