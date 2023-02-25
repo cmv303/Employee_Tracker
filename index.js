@@ -1,7 +1,12 @@
+//This file is the entry point of the application. 
+//It requires the EmployeeTracker class from lib/EmployeeTracker.js 
+//and creates an instance of it, which it calls to start the application.
+
 //dependencies required
 const inquirer = require("inquirer");
-const fs = require("fs");
-const path = require("path");
+
+//connect to mySQL using localhost, user, pw, database, etc
+
 
 const Questionnaire = {
    addToQuestions: [
@@ -22,7 +27,7 @@ const Questionnaire = {
         type: "input",
         message: "What is the name of the department you would like to add?",
         name: "new department",
-        default: "Philosophy",
+        default: "Customer Service",
       },
       {
         type: "list",
@@ -59,7 +64,7 @@ const Questionnaire = {
         type: "input",
         message: "What is the name of the role you would like to add?",
         name: "new role",
-        default: "Staff",
+        default: "Team Lead",
       },
     ],
 
