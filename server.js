@@ -1,6 +1,5 @@
 //This file is the entry point of the application. 
-//It requires the EmployeeTracker class from lib/EmployeeTracker.js 
-//and creates an instance of it, which it calls to start the application.
+
 
 //dependencies required
 const inquirer = require("inquirer");
