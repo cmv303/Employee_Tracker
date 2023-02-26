@@ -89,6 +89,52 @@ async viewAllEmployees() {
     }
 }
 
+//! how do I connect this to query.sql?' NOT SURE ABOUT MY QUERIES HERE
+async addADepartment() {
+    try{
+        const connection = await dbConnection;
+        const [rows] = await connection.query('INSERT INTO department VALUES ?');
+        console.table('department added!', rows);
+        this.start();
+    } catch (error) {
+        console.error('Error executing query:', error)
+    }
+}
+
+//! how do I connect this to query.sql?' NOT SURE ABOUT MY QUERIES HERE
+async addARole() {
+    try{
+        const connection = await dbConnection;
+        const [rows] = await connection.query('INSERT INTO role (title, salary, department_id) VALUES (?, salary, department_id)');
+        console.table('role added!', rows);
+        this.start();
+    } catch (error) {
+        console.error('Error executing query:', error)
+    }
+}
+//! how do I connect this to query.sql? NOT SURE ABOUT MY QUERIES HERE
+async addAnEmployee() {
+    try{
+        const connection = await dbConnection;
+        const [rows] = await connection.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, role_id, manager_id');
+        console.table('employee added!', rows);
+        this.start();
+    } catch (error) {
+        console.error('Error executing query:', error)
+    }
+}
+//! how do I connect this to query.sql? NOT SURE ABOUT MY QUERIES HERE
+async updateAnEmployee() {
+    try{
+        const connection = await dbConnection;
+        const [rows] = await connection.query('UPDATE employee SET role_id = new role_id WHERE = employee_id');
+        console.table('employee updated!', rows);
+        this.start();
+    } catch (error) {
+        console.error('Error executing query:', error)
+    }
+}
+
 };
 
 const questionnaire = new Questionnaire();
