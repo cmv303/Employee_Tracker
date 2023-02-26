@@ -3,6 +3,8 @@
 
 //dependencies required
 const connection = require("./connection");
+
+
 const inquirer = require("inquirer");
 
 
@@ -142,14 +144,10 @@ async function run() {
     }
 }
 
-module.exports = connection;
+
 
 run();
 
-
-
-
-
-
+module.exports = connection;
 
 

@@ -1,7 +1,7 @@
 //This file contains database connection setup code
 
 //dependencies required
-const mysql = require ('mysql2/promise');
+const mysql = require ('mysql2');
 const dotenv = require ('dotenv');
 dotenv.config();
 
