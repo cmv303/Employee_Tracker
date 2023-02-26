@@ -2,19 +2,10 @@
 
 
 //dependencies required
+const connection = require("./connection");
 const inquirer = require("inquirer");
-const mysql = require ('mysql2');
-require ('dotenv').config();
 
-//stores mysql connection in a variable and attaches a promise method to it, allowing asynchoronous functions to be used instead of callbacks from here on out
-const dbConnection = mysql.createConnection (
-  {
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
-}
-).promise()
+
 
 
 const Questionnaire = {
@@ -122,6 +113,7 @@ const questionnaire = Object.create(Questionnaire);
 
 async function run() {
     while (true) {
+      console.log("We got here!");
         const { action } = await inquirer.prompt([
             {
                 type: "list",
@@ -136,6 +128,7 @@ async function run() {
                 default: "Add",
             }
         ]);
+        
 
         if (action === "Add") {
             await questionnaire.askAddQuestions();
@@ -149,9 +142,11 @@ async function run() {
     }
 }
 
+module.exports = connection;
+
 run();
 
-module.exports = { dbConnection, questionnaire };
+
 
 
 
