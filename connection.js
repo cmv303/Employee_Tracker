@@ -13,4 +13,6 @@ const dbConnection = mysql.createPool ({
     database: process.env.MYSQL_DATABASE
 });
 
+console.log("here I am")
 module.exports = dbConnection.promise();
+console.log("me too")
