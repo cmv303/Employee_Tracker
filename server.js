@@ -63,7 +63,8 @@ async function start() {
         if (view === "View departments") {
           try {
             const rows = await dbConnection.query("SELECT * FROM department");
-            console.table("All records in department table:", rows);
+            console.log("rows", rows);
+            console.table("All records in department table:", rows[0]);
           } catch (error) {
             console.error("Error executing query:", error);
           }
