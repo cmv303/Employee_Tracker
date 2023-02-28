@@ -69,8 +69,7 @@ async function start() {
           start.bind(this)();
         } else if (view === "View roles") {
           try {
-            //!not done/not working)
-            const rows = await dbConnection.query("SELECT role.id, role.title, role.salary FROM role");
+            const rows = await dbConnection.query("SELECT role.id, role.title, role.salary, department.dept_name FROM role JOIN department ON role.department_id = department.id");
             console.log("ROWSSSSS", rows)
             console.table("All records in role table:", rows [0]);
           } catch (error) {
