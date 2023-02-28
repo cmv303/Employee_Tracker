@@ -3,7 +3,7 @@ const dbConnection = require("./connection");
 console.log("Am i connected", dbConnection);
 const inquirer = require("inquirer");
 console.log("Am I inquiring?", inquirer);
-const consoleTable = require("console.table"); //!where should I call
+const consoleTable = require("console.table");
 console.log("am i a table?", consoleTable);
 
 // Define the main menu using inquirer
@@ -53,11 +53,9 @@ const updateMenu = [
 
 // Define the start function, which is the main entry point of the application
 async function start() {
-  while (true) {
     const { main } = await inquirer.prompt(mainMenu);
 
     if (main === "View") {
-      while (true) {
         const { view } = await inquirer.prompt(viewMenu);
 
         if (view === "View departments") {
@@ -71,32 +69,33 @@ async function start() {
           start.bind(this)();
         } else if (view === "View roles") {
           try {
-            //!not working and is breaking all my menu options (see terminal)
-            const rows = await dbConnection.query("SELECT role.id, department.name, role.title, role.salary FROM department");
-            console.table("All records in role table:", rows);
+            //!not done/not working)
+            const rows = await dbConnection.query("SELECT role.id, role.title, role.salary FROM role");
+            console.log("ROWSSSSS", rows)
+            console.table("All records in role table:", rows [0]);
           } catch (error) {
             console.error("Error executing query:", error);
           }
           start.bind(this)();
         } else if (view === "View employees") {
           try {
-            const rows = await dbConnection.query("SELECT * FROM employee");
-            console.table("All records in employee table:", rows);
+            const rows = await dbConnection.query("SELECT employee.first_name, employee.last_name, role.title, department.dept_name AS department, role.salary, CONCAT (manager.first_name) AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON employee.manager_id = manager.id");
+            console.log("Employee????", rows)
+            console.table("All records in employee table:", rows [0]);
           } catch (error) {
             console.error("Error executing query:", error);
           }
           start.bind(this)();
         } else if (view === "Main menu") {
-          break; //break out of while loop and return to main menu
+          start();
         }
-      }
+      
     } else if (main === "Add") {
-      while (true) {
         const { add } = await inquirer.prompt(addMenu);
 
         if (add === "Add a department") {
             try {
-                //!Not working, and is breaking all my menu options (see terminal)
+                //!Not pushing to db)
                 const { dept_name } = await inquirer.prompt({
                     type: "input",
                     name: "deptName",
@@ -122,24 +121,20 @@ async function start() {
               start.bind(this)();
           //call function
         } else if (add === "Main menu") {
-          break; //break out of while loop and return to main menu
+          start(); //break out of while loop and return to main menu
         }
-      }
     } else if (main === "Update") {
-      while (true) {
         const { update } = await inquirer.prompt(updateMenu);
 
         if (update === "Update an employee") {
           //call function
         } else if (update === "Main menu") {
-          break; //break out of while loop and return to main menu
+          start(); //break out of while loop and return to main menu
         }
-      }
     } else if (main === "Quit") {
       //exit the node.js process entirely
       process.exit(0);
     }
-  }
 }
 
 //call the start function
