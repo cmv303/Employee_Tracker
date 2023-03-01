@@ -121,7 +121,7 @@ async function start() {
             type: "input",
             name: "roleSalary",
             message: "What is the salary of the role you would like to add?",
-          }
+          },
         ]);
         console.log("Role Name, role salary", roleName, roleSalary);
         const rows = await dbConnection.query(
@@ -130,7 +130,8 @@ async function start() {
         );
         console.table(
           `role added!`,
-          { role: roleName, salary: roleSalary }, rows[0]
+          { role: roleName, salary: roleSalary },
+          rows[0]
         );
       } catch (error) {
         console.error("Error executing query:", error);
@@ -172,9 +173,6 @@ async function start() {
         console.error("Error executing query:", error);
       }
       start();
-      //call function
-    } else if (add === "Main menu") {
-      start(); //break out of while loop and return to main menu
     }
   } else if (main === "Update") {
     const { update } = await inquirer.prompt(updateMenu);
@@ -182,37 +180,40 @@ async function start() {
     if (update === "Update an employee") {
       try {
         const { employeeId } = await inquirer.prompt({
-          type: 'input',
-          name: 'employeeId',
-          message: 'Enter the ID of the employee you want to update:'
+          type: "input",
+          name: "employeeId",
+          message: "Enter the ID of the employee you want to update:",
         });
-    
+
         // Retrieve the existing employee information from the database
-        const [rows] = await dbConnection.query('SELECT * FROM employee WHERE id = ?', [employeeId]);
-    
+        const [rows] = await dbConnection.query(
+          "SELECT * FROM employee WHERE id = ?",
+          [employeeId]
+        );
+
         if (rows.length === 0) {
           console.log(`No employee found with ID ${employeeId}.`);
           return;
         }
         const { first_name, last_name } = rows[0];
-    
+
         // Prompt the user to enter the new information for the employee
         const { newFirstName, newLastName } = await inquirer.prompt([
           {
-            type: 'input',
-            name: 'newFirstName',
+            type: "input",
+            name: "newFirstName",
             message: `Enter the employee's new first name (${first_name}):`,
           },
           {
-            type: 'input',
-            name: 'newLastName',
+            type: "input",
+            name: "newLastName",
             message: `Enter the employee's new last name (${last_name}):`,
-          }
+          },
         ]);
-    
+
         // Update the employee record in the database with the new information
         const [result] = await dbConnection.query(
-          'UPDATE employee SET first_name = ?, last_name = ? WHERE id = ?',
+          "UPDATE employee SET first_name = ?, last_name = ? WHERE id = ?",
           [newFirstName, newLastName, employeeId]
         );
         console.table(`Employee updated!`, result[0]);
