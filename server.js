@@ -1,10 +1,7 @@
 //dependencies required
 const dbConnection = require("./connection");
-console.log("Am i connected", dbConnection);
 const inquirer = require("inquirer");
-console.log("Am I inquiring?", inquirer);
 const consoleTable = require("console.table");
-console.log("am i a table?", consoleTable);
 
 // Define the main menu using inquirer
 const mainMenu = [
@@ -55,8 +52,9 @@ async function start() {
 
     if (view === "View departments") {
       try {
-        const rows = await dbConnection.query("SELECT * FROM department");
-        console.log("rows", rows);
+        const rows = await dbConnection.query(
+          "SELECT id, dept_name FROM department"
+        );
         console.table("All records in department table:", rows[0]);
       } catch (error) {
         console.error("Error executing query:", error);
@@ -67,7 +65,6 @@ async function start() {
         const rows = await dbConnection.query(
           "SELECT role.id, role.title, role.salary, department.dept_name FROM role JOIN department ON role.department_id = department.id"
         );
-        console.log("ROWSSSSS", rows);
         console.table("All records in role table:", rows[0]);
       } catch (error) {
         console.error("Error executing query:", error);
@@ -78,7 +75,6 @@ async function start() {
         const rows = await dbConnection.query(
           "SELECT employee.first_name, employee.last_name, role.title, department.dept_name AS department, role.salary, CONCAT (manager.first_name) AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON employee.manager_id = manager.id"
         );
-        console.log("Employee????", rows);
         console.table("All records in employee table:", rows[0]);
       } catch (error) {
         console.error("Error executing query:", error);
@@ -96,22 +92,18 @@ async function start() {
           name: "deptName",
           message: "What is the name of the department you would like to add?",
         });
-        console.log("Department Name", deptName);
-        const result = await dbConnection.query(
+        const rows = await dbConnection.query(
           `INSERT INTO department (dept_name) VALUES (?)`,
           [deptName]
         );
-        console.table(
-          `department ${deptName} added with ID ${result.id}`,
-          result[0]
-        );
+        console.table(`department added!`, { deparment: deptName }, rows[0]);
       } catch (error) {
         console.error("Error executing query:", error);
       }
       start();
     } else if (add === "Add a role") {
       try {
-        const { roleName, roleSalary } = await inquirer.prompt([
+        const { roleName, roleSalary, deptID } = await inquirer.prompt([
           {
             type: "input",
             name: "roleName",
@@ -122,15 +114,24 @@ async function start() {
             name: "roleSalary",
             message: "What is the salary of the role you would like to add?",
           },
+          {
+            type: "input",
+            name: "deptID",
+            message:
+              "What is the department ID of the role you would like to add?",
+          },
         ]);
-        console.log("Role Name, role salary", roleName, roleSalary);
         const rows = await dbConnection.query(
-          `INSERT INTO role (title, salary) VALUES (?, ?)`,
-          [roleName, roleSalary]
+          `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`,
+          [roleName, roleSalary, deptID]
         );
         console.table(
           `role added!`,
-          { role: roleName, salary: roleSalary },
+          {
+            role: roleName,
+            salary: roleSalary,
+            id: deptID,
+          },
           rows[0]
         );
       } catch (error) {
