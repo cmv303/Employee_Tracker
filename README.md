@@ -10,7 +10,7 @@ This Employee Tracker will allow users to view various components of the employe
 - databases called through terminal/command-line
 
 ## Demo
-INCLUDE DEMO OF SCREENCASTIFY HERE
+https://drive.google.com/file/d/1r_5NjOQ6hT6QMHWgTK0L4u6RhNuheZws/view
 
 ## Installation
 
