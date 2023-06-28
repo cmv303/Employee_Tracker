@@ -10,7 +10,12 @@ This Employee Tracker will allow users to view various components of the employe
 - databases called through terminal/command-line
 
 ## Demo
+
 https://drive.google.com/file/d/1r_5NjOQ6hT6QMHWgTK0L4u6RhNuheZws/view
+
+## Screenshots
+![Screen Shot 2023-06-28 at 4 24 57 PM](https://github.com/cmv303/Employee_Tracker/assets/115678318/c68ec1cf-213e-452d-8158-7a47fee72181)
+![Screen Shot 2023-06-28 at 4 25 22 PM](https://github.com/cmv303/Employee_Tracker/assets/115678318/1d886860-6f48-4f99-899e-4004baa81e6f)
 
 ## Installation
 
